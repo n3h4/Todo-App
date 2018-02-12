@@ -11,13 +11,13 @@ class TodoList extends Component {
             <div>
 
                 <ul className="list">
-                    {this.props.todos.map((todo, index) => {
+                    {this.props.todos.map((todo, i) => {
 
                         return <TodoItem
 
-                            key={index}
+                            key={i}
                             todo={todo}
-                            handleDelete={this.props.handleDelete.bind(null, todo.title)}
+                            handleDelete={this.props.handleDelete}
                             handleDone={this.props.handleDone}
 
 

@@ -13,13 +13,13 @@ class TodoItem extends Component {
 
         return (
 
-            <li>
+            <li className={todo.done ? 'done' : ''}>
 
                 <input type="checkbox"
-                    onChange={this.props.handleDone.bind(null, title)}
+                    onChange={this.props.handleDone.bind(null, todo.id)}
                     checked={todo.done}
                 />  {title}
-                <button className="delete" onClick={this.props.handleDelete.bind(null, title)}></button>
+                <button className="delete" onClick={this.props.handleDelete.bind(null, todo.id)}></button>
             </li>
 
         );

@@ -34,6 +34,10 @@
       margin: 0px;
       padding: 0px;
     }
+     .done  {
+      color: #777777;
+      text-decoration: line-through;
+    }
 
     .list>li {
       list-style: none;
