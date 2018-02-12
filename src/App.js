@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import TodoList from './Applist.js';
 import './App.css';
 
+var rand = require("random-key");
+
 class App extends Component {
 
   constructor() {
@@ -20,8 +22,8 @@ class App extends Component {
 
     e.preventDefault();
 
-    var title =  this.state.title;
-    var newTodos = this.state.todos.concat({title: title, done: false});
+    var title = this.state.title;
+    var newTodos = this.state.todos.concat({ title: title, id: rand.generate(), done: false });
 
     this.setState({ title: '', todos: newTodos });
   }
@@ -30,7 +32,9 @@ class App extends Component {
 
     // console.log(itemToBeDeleted);  
     var newTodos = this.state.todos.filter((todo) => {
-      return todo.title !== itemToBeDeleted
+
+      return todo.id !== itemToBeDeleted
+
     });
 
     this.setState({ todos: newTodos });
@@ -42,20 +46,24 @@ class App extends Component {
 
     var todo = _todo.filter((todo) => {
 
-      return todo.title === markAsDone;
+      return todo.id === markAsDone;
 
     })[0];
     // console.log("working");
 
     todo.done = !todo.done;
+
     this.setState({ todos: _todo });
   }
 
-  handleClearCompleted(event){
-var newTodos = this.state.todos.filter((todo) => {return !todo.done});
-this.setState({todos: newTodos});
+  handleClearCompleted(event) {
+
+    var newTodos = this.state.todos.filter((todo) => { return !todo.done });
+    this.setState({ todos: newTodos });
+
   }
   render() {
+
     return (
       <div>
         <h1 className="header">Todo-List</h1>
@@ -67,22 +75,22 @@ this.setState({todos: newTodos});
         </form>
 
 
-        <TodoList 
+        <TodoList
 
-        handleDelete={this.handleDelete.bind(this)} 
-        todos={this.state.todos} 
-        handleDone={this.handleDone.bind(this)}
-        
+          handleDelete={this.handleDelete.bind(this)}
+          todos={this.state.todos}
+          handleDone={this.handleDone.bind(this)}
+
         />
         <footer >
-          
 
-            <p className="status" id="all">All: {this.state.todos.length}</p>
-            <p className="status">Completed: {this.state.todos.filter((todo) => { return todo.done }).length}</p>
-            <p className="status">Pending: {this.state.todos.filter((todo) => { return !todo.done }).length}</p>
-            <p  className="status" onClick={this.handleClearCompleted.bind(this)}>Clear Completed</p>
 
-          
+          <p className="status" id="all">All: {this.state.todos.length}</p>
+          <p className="status">Completed: {this.state.todos.filter((todo) => { return todo.done }).length}</p>
+          <p className="status">Pending: {this.state.todos.filter((todo) => { return !todo.done }).length}</p>
+          <p className="status" onClick={this.handleClearCompleted.bind(this)}>Clear Completed</p>
+
+
 
         </footer>
       </div>
