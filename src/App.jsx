@@ -13,55 +13,41 @@ class App extends Component {
   }
 
   handleChange(e) {
-
     this.setState({ title: e.target.value });
-
   }
 
   handleSubmit(e) {
 
     e.preventDefault();
-
-    var title = this.state.title;
-    var newTodos = this.state.todos.concat({ title: title, id: rand.generate(), done: false });
-
+    const title = this.state.title;
+    const newTodos = this.state.todos.concat({ title: title, id: rand.generate(), done: false });
     this.setState({ title: '', todos: newTodos });
+
   }
 
   handleDelete(itemToBeDeleted) {
 
-    // console.log(itemToBeDeleted);  
-    var newTodos = this.state.todos.filter((todo) => {
-
-      return todo.id !== itemToBeDeleted
-
-    });
-
+    const newTodos = this.state.todos.filter((todo) => todo.id !== itemToBeDeleted);
     this.setState({ todos: newTodos });
+
   }
 
   handleDone(markAsDone) {
 
-    var _todo = this.state.todos;
-
-    var todo = _todo.filter((todo) => {
-
-      return todo.id === markAsDone;
-
-    })[0];
-    // console.log("working");
-
+    const _todo = this.state.todos;
+    const todo = _todo.find(({ id }) => id === markAsDone)
     todo.done = !todo.done;
-
     this.setState({ todos: _todo });
+
   }
 
   handleClearCompleted(event) {
 
-    var newTodos = this.state.todos.filter((todo) => { return !todo.done });
+    const newTodos = this.state.todos.filter((todo) => { return !todo.done });
     this.setState({ todos: newTodos });
 
   }
+
   render() {
 
     return (
@@ -72,6 +58,7 @@ class App extends Component {
 
           <input className="additems" placeholder="Add your list here" onChange={this.handleChange.bind(this)}
             value={this.state.title} />
+
         </form>
 
 
@@ -82,16 +69,12 @@ class App extends Component {
           handleDone={this.handleDone.bind(this)}
 
         />
+
         <footer >
-
-
           <p className="status" id="all">All: {this.state.todos.length}</p>
           <p className="status">Completed: {this.state.todos.filter((todo) => { return todo.done }).length}</p>
           <p className="status">Pending: {this.state.todos.filter((todo) => { return !todo.done }).length}</p>
           <p className="status" onClick={this.handleClearCompleted.bind(this)}>Clear Completed</p>
-
-
-
         </footer>
       </div>
     );
