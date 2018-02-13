@@ -11,17 +11,9 @@ class TodoList extends Component {
             <div>
 
                 <ul className="list">
+
                     {this.props.todos.map((todo, i) => {
-
-                        return <TodoItem
-
-                            key={i}
-                            todo={todo}
-                            handleDelete={this.props.handleDelete}
-                            handleDone={this.props.handleDone}
-
-
-                             />
+                        return <TodoItem key={i} todo={todo} handleDelete={this.props.handleDelete} handleDone={this.props.handleDone} />
                     })}
 
                 </ul>
