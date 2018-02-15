@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TodoList from './Applist.js';
 import './App.css';
 
-var rand = require("random-key");
+const random = require("random-key");
 
 class App extends Component {
 
@@ -14,13 +14,14 @@ class App extends Component {
 
   handleChange(e) {
     this.setState({ title: e.target.value });
-  }
+    }
 
   handleSubmit(e) {
 
     e.preventDefault();
     const title = this.state.title;
-    const newTodos = this.state.todos.concat({ title: title, id: rand.generate(), done: false });
+    const newTodos = this.state.todos.concat({ title: title, id: random.generate(), done: false });
+    localStorage.setItem('todos', JSON.stringify(newTodos));
     this.setState({ title: '', todos: newTodos });
 
   }
@@ -37,6 +38,7 @@ class App extends Component {
     const _todo = this.state.todos;
     const todo = _todo.find(({ id }) => id === markAsDone)
     todo.done = !todo.done;
+    localStorage.setItem('todos', JSON.stringify(todo));
     this.setState({ todos: _todo });
 
   }
