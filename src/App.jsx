@@ -3,6 +3,7 @@ import TodoList from './Applist.js';
 import './App.css';
 
 const random = require("random-key");
+const items = JSON.parse(localStorage.getItem('items')) ||[];
 
 class App extends Component {
 
