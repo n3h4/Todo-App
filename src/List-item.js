@@ -55,7 +55,7 @@ class TodoItem extends Component {
 
                 </div>
 
-                    <input type="text" value={this.state.changedText} onKeyDown={this.handleEditingDone.bind(this)}
+                    <input type="text" onKeyDown={this.handleEditingDone.bind(this)}
                     onChange={this.handleEditingChange.bind(this)} style={editStyle} />
 
             </li>
