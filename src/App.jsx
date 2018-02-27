@@ -39,8 +39,6 @@ class App extends Component {
 
   handleDelete(index) {
     // const newTodos = this.state.todos.filter((todo) =>  itemToBeDeleted !== todo);
-    // console.log(newTodos);
-
     // this.setState({todos: newTodos });
     const todos = this.state.todos;
     todos.splice(index, 1);
