@@ -3,7 +3,7 @@ import TodoList from './Applist.js';
 import './App.css';
 
 const random = require("random-key");
-const items = JSON.parse(localStorage.getItem('items')) ||[];
+
 
 class App extends Component {
 
@@ -13,24 +13,38 @@ class App extends Component {
 
   }
 
+  componentDidMount() {
+    
+    const todos = JSON.parse(localStorage.getItem('todos'));
+    this.setState({ todos });
+    
+  }
+  componentDidUpdate() {
+
+    localStorage.setItem('todos', JSON.stringify(this.state.todos));
+  }
+
   handleChange(e) {
     this.setState({ title: e.target.value });
-    }
+  }
 
   handleSubmit(e) {
 
     e.preventDefault();
     const title = this.state.title;
-    const newTodos = this.state.todos.concat({ title: title, id: random.generate(), done: false });
-    localStorage.setItem('todos', JSON.stringify(newTodos));
-    this.setState({ title: '', todos: newTodos });
+    const _newTodos = this.state.todos.concat({ title: title, id: random.generate(), done: false });
+    this.setState({ title: '', todos: _newTodos });
 
   }
 
-  handleDelete(itemToBeDeleted) {
+  handleDelete(index) {
+    // const newTodos = this.state.todos.filter((todo) =>  itemToBeDeleted !== todo);
+    // console.log(newTodos);
 
-    const newTodos = this.state.todos.filter((todo) => todo.id !== itemToBeDeleted);
-    this.setState({ todos: newTodos });
+    // this.setState({todos: newTodos });
+    const todos = this.state.todos;
+    todos.splice(index, 1);
+    this.setState({todos: todos });
 
   }
 
@@ -39,7 +53,6 @@ class App extends Component {
     const _todo = this.state.todos;
     const todo = _todo.find(({ id }) => id === markAsDone)
     todo.done = !todo.done;
-    localStorage.setItem('todos', JSON.stringify(todo));
     this.setState({ todos: _todo });
 
   }
@@ -83,5 +96,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
